@@ -8,7 +8,7 @@
 #% define date 20191128
 #% define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%define ver 20.11.3
+%define ver 19.11.10
 %define rel 3
 
 %define srcname dpdk
@@ -274,13 +274,10 @@ export PATH="%{venvdir}/bin:$PATH"
 
 %meson_install
 
-# FIXME this file doesn't have chmod +x upstream
-chmod +x %{buildroot}%{sdkdir}/examples/pipeline/examples/vxlan_table.py
-
 rm -f %{buildroot}%{_bindir}/dpdk-pdump
 rm -f %{buildroot}%{_bindir}/dpdk-proc-info
 rm -f %{buildroot}%{_bindir}/dpdk-test{,-acl,-bbdev,-cmdline,-compress-perf,-crypto-perf,-eventdev,-pipeline,-sad,-fib,-flow-perf,-regex}
-rm -f %{buildroot}%{_libdir}/*.a
+rm -rf %{buildroot}/lib/modules
 
 %files
 # BSD
@@ -307,9 +304,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %exclude %{sdkdir}/examples/
 %endif
 %{_libdir}/*.so
+%{_libdir}/*.a
 %{pmddir}/*.so
 %{_libdir}/pkgconfig/libdpdk.pc
-%{_libdir}/pkgconfig/libdpdk-libs.pc
 %if %{with examples}
 %files examples
 %{_bindir}/dpdk-*
