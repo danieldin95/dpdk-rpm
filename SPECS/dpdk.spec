@@ -8,7 +8,7 @@
 #% define date 20191128
 #% define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%define ver 20.11
+%define ver 20.11.3
 %define rel 3
 
 %define srcname dpdk
@@ -260,7 +260,7 @@ done
        --default-library=shared \
        -Ddisable_drivers="$disable_drivers" \
        -Ddrivers_install_subdir=dpdk-pmds \
-       -Denable_docs=true \
+       -Denable_docs=false \
        -Dmachine=default \
        -Dmax_ethports=32 \
        -Dmax_numa_nodes=8 \
