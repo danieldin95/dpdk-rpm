@@ -8,10 +8,10 @@
 #% define date 20191128
 #% define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%define ver 20.11
+%define ver 20.11.4
 %define rel 3
 
-%define srcname dpdk
+%define srcname dpdk-stable
 
 %define ninjaver  1.8.2
 %define mesonver  0.49.2
