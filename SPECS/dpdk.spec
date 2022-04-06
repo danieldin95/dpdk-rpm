@@ -4,14 +4,14 @@
 %bcond_without tools
 
 # Dont edit Version: and Release: directly, only these:
-#% define commit0 7001c8fdb27357c67147c0a13cb3826e48c0f2bf
-#% define date 20191128
+#% define commit0 cc4a6486c2ebd66ecac4dc48f0211d4e0176ecf7
+#% define date 20201127
 #% define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %define ver 20.11
-%define rel 5
+%define rel 0
 
-%define srcname dpdk-stable
+%define srcname dpdk
 
 Name: dpdk
 Version: %{ver}
@@ -20,7 +20,7 @@ URL: http://dpdk.org
 %if 0%{?commit0:1}
 Source: http://dpdk.org/browse/dpdk/snapshot/dpdk-%{commit0}.tar.xz
 %else
-Source: http://fast.dpdk.org/rel/dpdk-%{ver}.%{rel}.tar.xz
+Source: http://fast.dpdk.org/rel/dpdk-%{ver}.tar.xz
 %endif
 
 BuildRequires: meson
@@ -174,7 +174,7 @@ as L2 and L3 forwarding.
 %endif
 
 %prep
-%setup -q -n %{srcname}-%{?commit0:%{commit0}}%{!?commit0:%{ver}.%{rel}}
+%setup -q -n %{srcname}-%{?commit0:%{commit0}}%{!?commit0:%{ver}}
 
 %build
 ENABLED_DRIVERS=(
@@ -227,6 +227,7 @@ done
        -Ddisable_drivers="$disable_drivers" \
        -Ddrivers_install_subdir=dpdk-pmds \
        -Dmachine=default \
+       -Dexamples=l2fwd \
        -Dmax_ethports=16 \
        -Dmax_numa_nodes=32 \
        -Dtests=true
